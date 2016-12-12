@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "install.packages('rsconnect')\nlibrary(rsconnect)\nrsconnect::setAccountInfo(name='travisbarrick',\n                          token='E5BB09050B3270B807181F43C8EB02BE',\n                          secret='zE1GVlEl/IGbaYKF/iwLWOg4SfJxWM5FZouU9Pp9')\n\nrsconnect::deployApp('C:/Users/Travis/Desktop/Final Project/Publish/Published.Rmd')\n\nmapstates<-mapstates%>%\n  select(Category,ProviderState,Mean_Cost_Percentage_Difference_to_Iowa,lat,long)\n  \nmapstates2<-mapstates2%>%\n  select(Category,ProviderState,Mean_Cost_Percentage_Difference_to_Iowa,lat,long)\n  \nAnalysis_Dataset<-Analysis_Dataset%>%\n  select(Category,ProviderState,AverageCoveredCharges, AverageMedicarePayments,AverageTotalPayments,Procedure,TotalDischarges,ProviderName)\n\nAverageCategory<-AverageCategory%>%\n  select(Category,Rating,ProviderName,ProviderStreetAddress,ProviderCity,AverageCost,Name,ProviderState,latitude,longitude)\n\nwrite.csv(mapstates, file = \"mapstates3.csv\",row.names=FALSE)\nwrite.csv(mapstates2, file = \"mapstates4.csv\",row.names=FALSE)\nwrite.csv(Analysis_Dataset, file = \"Analysis_Dataset2.csv\",row.names=FALSE)\nwrite.csv(AverageCategory, file = \"AverageCategory.csv\",row.names=FALSE)",
+    "created" : 1480818678229.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "2549565911",
+    "id" : "5E21F09B",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1481231904238,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

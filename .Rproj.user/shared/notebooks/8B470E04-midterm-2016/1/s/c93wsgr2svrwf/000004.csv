@@ -1,0 +1,6 @@
+"0","dc = get_map(location = 'DC', zoom = 11,color=""bw"")
+"
+"2","Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=DC&zoom=11&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
+"
+"2","Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=DC&sensor=false
+"

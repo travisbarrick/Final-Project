@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1481332539148.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E97350EB",
+    "lastKnownWriteTime" : 3419473789575321445,
+    "last_content_update" : 1481332539148,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "5DA96E5D",
+        "caption" : "AverageCategory",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=AverageCategory&cache_key=5DA96E5D",
+        "displayedObservations" : 29153,
+        "environment" : "",
+        "object" : "AverageCategory",
+        "preview" : 0,
+        "totalObservations" : 29153,
+        "variables" : 10
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

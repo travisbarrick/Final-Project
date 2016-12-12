@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(plotly)\n\n#healthcare <- read_csv(\"C:/Users/Travis/Desktop/Final Project/Healthcare_Data.csv\")\n\nui <- fluidPage(\n  titlePanel(\"Average Cost of Healthcare\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"Category\", \"Category Definition\", \n                  choices=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ),\n                  selected=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ), \n                  multiple=TRUE), \n      selectInput(\"State\", \"State\", \n                  choices=c(\"AK\"\t,\"AL\"\t,\"AR\"\t,\"AZ\"\t,\"CA\"\t,\"CO\"\t,\"CT\"\t,\"DC\"\t,\"DE\"\t,\"FL\"\t,\"GA\"\t,\"HI\"\t,\"IA\"\t,\"ID\"\t,\"IL\"\t,\"IN\"\t,\"KS\"\t,\"KY\"\t,\"LA\"\t,\"MA\"\t,\"MD\"\t,\"ME\"\t,\"MI\"\t,\"MN\"\t,\"MO\"\t,\"MS\"\t,\"MT\"\t,\"NC\"\t,\"ND\"\t,\"NE\"\t,\"NH\"\t,\"NJ\"\t,\"NM\"\t,\"NV\"\t,\"NY\"\t,\"OH\"\t,\"OK\"\t,\"OR\"\t,\"PA\"\t,\"RI\"\t,\"SC\"\t,\"SD\"\t,\"TN\"\t,\"TX\"\t,\"UT\"\t,\"VA\"\t,\"VT\"\t,\"WA\"\t,\"WI\"\t,\"WV\"\t,\"WY\"\n                  ),\n                  selected=c(\"AK\"\t,\"AL\"\t,\"AR\"\t,\"AZ\"\t,\"CA\"\t,\"CO\"\t,\"CT\"\t,\"DC\"\t,\"DE\"\t,\"FL\"\t,\"GA\"\t,\"HI\"\t,\"IA\"\t,\"ID\"\t,\"IL\"\t,\"IN\"\t,\"KS\"\t,\"KY\"\t,\"LA\"\t,\"MA\"\t,\"MD\"\t,\"ME\"\t,\"MI\"\t,\"MN\"\t,\"MO\"\t,\"MS\"\t,\"MT\"\t,\"NC\"\t,\"ND\"\t,\"NE\"\t,\"NH\"\t,\"NJ\"\t,\"NM\"\t,\"NV\"\t,\"NY\"\t,\"OH\"\t,\"OK\"\t,\"OR\"\t,\"PA\"\t,\"RI\"\t,\"SC\"\t,\"SD\"\t,\"TN\"\t,\"TX\"\t,\"UT\"\t,\"VA\"\t,\"VT\"\t,\"WA\"\t,\"WI\"\t,\"WV\"\t,\"WY\"), \n                  multiple=TRUE)\n       ),\n    mainPanel(\n     # plotOutput(\"coolplot\")\n      plotlyOutput(\"plot\")\n    )\n  )\n)\n\nserver <- function(input, output,session) {\n  output$plot <- renderPlotly({\nstr(Analysis_Dataset)\n    m<-Analysis_Dataset%>%\n      filter(Category==input$Category,ProviderState==input$State)%>%\n      group_by(Category,ProviderState) %>% \n      summarize(avg_insurance = mean(AverageCoveredCharges),\n                avg_medicare = mean(AverageMedicarePayments),\n                avg_patient_owed = mean(AverageTotalPayments-AverageMedicarePayments))\n    p <- plot_ly(m, x = ~avg_insurance, y = ~avg_medicare, \n                 z = ~avg_patient_owed,hoverinfo = 'text',text=~paste('Category: ',Category,'</br> State: ',ProviderState),color = ~Category \n                 )%>%\n      add_markers() %>%\n      layout(scene = list(xaxis = list(title = 'Average Insurance'),\n                          yaxis = list(title = 'Average Medicare'),\n                          zaxis = list(title = 'Average Patient Owed')))\n    \n  })\n}\n\nshinyApp(ui = ui, server = server)",
+    "created" : 1478743793700.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "824254565",
+    "id" : "23381333",
+    "lastKnownWriteTime" : 1479788519,
+    "last_content_update" : 1479788519,
+    "path" : "C:/Users/Travis/Desktop/Final Project/FinalGgplot/app.R",
+    "project_path" : "FinalGgplot/app.R",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

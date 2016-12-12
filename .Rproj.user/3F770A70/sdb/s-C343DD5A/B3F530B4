@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#Scrapping web data\ninstall.packages(\"rvest\")\nlibrary(rvest)\nlibrary(xml2)\nurl<-\"http://www.espn.com/nfl/boxscore?gameId=400874589\"\ndoc<-xml2::read_html(url)\ntables<-rvest::html_table(doc,fill=TRUE)\ntables\n",
+    "created" : 1478481791777.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3850665817",
+    "id" : "B3F530B4",
+    "lastKnownWriteTime" : 1479353476,
+    "last_content_update" : 1479353476918,
+    "path" : "C:/Users/Travis/Desktop/Final Project/Code.R",
+    "project_path" : "Code.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

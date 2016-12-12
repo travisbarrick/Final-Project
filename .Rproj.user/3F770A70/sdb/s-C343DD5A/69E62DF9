@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(plotly)\n\n\nui <- fluidPage(\n  #titlePanel(\"Cost of Healthcare Compared to Iowa\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"Category\", \"Select Category\", \n                  choices=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ),\n                  selected=c(\"Heart\"\n                  ), \n                  multiple=FALSE),width=2\n    ),\n    mainPanel(\n      plotlyOutput(\"plot\",width=1100,height=550\n      )\n    )\n  )\n)  \n\n\nserver <- function(input, output,session) {\n  output$plot <- renderPlotly({\n    states<-map_data(\"state\")\n\n    mapstates<-merge(states,COLA_Mid_Point_Analysis_Table,by.x =\"region\", by.y =\"Name\")\n    \n    catreact<-reactive({input$Category})\n    \n    mapstates %>% \n      filter(Category==catreact())%>%\n      group_by(Category,ProviderState,Mean_Cost_Percentage_Difference_to_Iowa)%>%\n      rename(Compared.to.Iowa=Mean_Cost_Percentage_Difference_to_Iowa)%>%\n        ggplot(aes(x = long, y = lat,group=group)) +   \n      geom_polygon(aes(group = group, fill=Compared.to.Iowa))+\n      expand_limits(x=states$long, y=states$lat)+\n      labs(title=\"Cost of Healthcare Compared to Iowa\")+\n      scale_fill_distiller(palette = \"Spectral\",name=\"% Compared to Iowa\")+\n      theme(plot.title = element_text(hjust = -0.7))\n    \n  })\n  \n  }\n\nshinyApp(ui = ui, server = server)",
+    "created" : 1478574320253.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2853386577",
+    "id" : "69E62DF9",
+    "lastKnownWriteTime" : 1480735359,
+    "last_content_update" : 1480735359954,
+    "path" : "C:/Users/Travis/Desktop/Final Project/Health/app.R",
+    "project_path" : "Health/app.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

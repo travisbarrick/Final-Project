@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "install.packages(\"rsconnect\")\nlibrary(rsconnect)\n\nrsconnect::setAccountInfo(name='team-jtec',\n                          token='4C1B5EBDFDCCFD5A8E2D4296F2CB48F1',\n                          secret='otyqqpyfswmEy8bS7YpaRGYuryF6ESi1NRzJY10G')\nrsconnect::deployApp('C:/Users/Travis/Desktop/Final Project/Publish/Published.Rmd')\n\nwrite.csv(mapstates, file = \"mapstates3.csv\",row.names=TRUE)\nwrite.csv(mapstates2, file = \"mapstates4.csv\",row.names=TRUE)\n",
+    "created" : 1478916746637.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "1244199207",
+    "id" : "CDB7B832",
+    "lastKnownWriteTime" : 27866456492998767,
+    "last_content_update" : 1481335932295,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(plotly)\nAnalysis_Dataset$Is_Iowa <- Analysis_Dataset$ProviderState ==  \"IA\"\n\n\n\n#healthcare <- read_csv(\"C:/Users/Travis/Desktop/Final Project/Healthcare_Data.csv\")\n\nui <- fluidPage(\n  titlePanel(\"Average Cost of Healthcare\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"Category\", \"Category Definition\", \n                  choices=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ),\n                  selected=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ), \n                  multiple=TRUE)\n    ),\n    mainPanel(\n      # plotOutput(\"coolplot\")\n      plotlyOutput(\"plot\")\n    )\n  )\n)\n\nserver <- function(input, output) {\n  catfilter<-reactive({\n    input$Category\n  })\n  statefilter<-reactive({\n    input$State\n  })\n  \n  output$plot <- renderPlotly({\n    CostCategoryDataset <-\n      Analysis_Dataset %>%\n      filter(Category==catfilter())%>%\n      group_by(Category, Is_Iowa) %>%\n      summarise(Average_Treatment_Cost = mean(TreatmentCost))\n    \n      p<-CostCategoryDataset %>%\n      ggplot(aes(x = Category, y = Average_Treatment_Cost, group_by(Is_Iowa), fill = Is_Iowa)) + \n      coord_flip() +\n      geom_bar(stat=\"identity\", position = position_dodge()) +\n      xlab(\"Average Cost of Treatment\") +\n      ylab(\"Treatment Categories\") \n    \n      (gg <- ggplotly(p))\n    \n    \n  })\n}\n\nshinyApp(ui = ui, server = server)",
+    "created" : 1479093259377.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3456069718",
+    "id" : "614EF738",
+    "lastKnownWriteTime" : 1480308692,
+    "last_content_update" : 1480308692889,
+    "path" : "C:/Users/Travis/Desktop/Final Project/GGplotly/app.R",
+    "project_path" : "GGplotly/app.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Homework 5 \"\nauthor: \" Stat 528\"\ndate: \"Due December 8, 2016\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n\nYour  homework submission should include the markdown file and the knitted document (your choice of html, pdf or Word).\n\n## What we have done on week 16?\n\nWe created a Shiny app that lets you search monuments in Iowa by name and plot the location in the Iowa map.\nIn this homework you will use data  about math and reading proficiency by school year, public school district and grade level. More information about this data set is available at https://data.iowa.gov/Education/Math-And-Reading-Proficiency-by-School-Year-Public/f3h8-mnxi.\n\n## What you need to do?\n\nFor this homework you have to create a new Shiny app using math and reading proficiency information in Iowa.\nYou need to do the following things:\n\n* Your app should let you search schools proficiency in Iowa by topic (math or reading), by year (from 2003 to 2014) and by grade (from 3 to 11)\n* The proficiency percentage for each district should be displayed in the Iowa map similar as we did with monuments.\n* Size the points based on proficiency percentage. \n* The information displayed in each point when you mouse over each point should be  proficiency percentage and district name. \n* Comment something interesting in the data using the app.\n\n ",
+    "created" : 1481431012838.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1095610300",
+    "id" : "3066C542",
+    "lastKnownWriteTime" : 1481431000,
+    "last_content_update" : 1481431000,
+    "path" : "C:/Users/Travis/Downloads/HW5(1).Rmd",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

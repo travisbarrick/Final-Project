@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(leaflet)\nlibrary(shiny)\nlibrary(htmltools)\nlibrary(ggplot2)\nlibrary(DT)\nrequire(stringr)\n\n\n\nui <- fluidPage(\n  # Application title\n  titlePanel(\"Treatment Cost\"),\n  \n  # Sidebar with a slider input for number of bins \n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"Category\", \"Category\", \n                  choices=c(\"Ears,Nose,Throat\",\t\"Endocrine\",\t\"Gastrointestinal\",\t\"Heart\",\t\"Infections\",\t\"Lung\",\t\"Nerve\",\t\"Orthopedic\",\t\"Other\",\t\"Poisoning\",\t\"Psychiatric\",\t\"Renal\",\t\"Skin\",\t\"Vascular\"\n                  ),\n                  selected=\"Heart\", \n                  multiple=FALSE), \n      radioButtons(\"Layout\", \"Layout\", \n                  choices=c(\"NASAGIBS.ViirsEarthAtNight2012\",\"Thunderforest.SpinalMap\",\"Esri.WorldStreetMap\",\"Esri.NatGeoWorldMap\"\n                  ),\n                  selected=c(\"Thunderforest.SpinalMap\")),\n      width=3\n      \n    ),\n   \n    # Show a plot of the generated distribution\n    mainPanel(tabsetPanel(\n      tabPanel(\"Map\",\n               leafletOutput('myMap')),\n      tabPanel(\"Most Affordable Hospitals\",\n               DT::dataTableOutput(\"table\"))\n    )\n  )\n)\n)\n    \n\n\n\nserver <- function(input, output,session) {\n  catreact<-reactive({input$Category})\n  statereact<-reactive({input$Layout})\n  \n  output$myMap <- renderLeaflet(\n    test<-AverageCategory%>%\n     filter(Category==catreact())%>%\n      group_by(Category)%>%\n      mutate(rank=row_number(),CostofTreatment=sprintf(\"$%s\",format(AverageCost,big.mark=\",\",digits=2,scientific=FALSE)))%>%\n      mutate(X=paste0('<strong>ProviderName: </strong>', \n                      ProviderName,\n                      '<br><strong>ProviderStreetAddress</strong>: ',\n                      ProviderStreetAddress,\n                      '<br><strong>ProviderCity</strong>: ',\n                      ProviderCity,\n                      '<br><strong>AverageCost</strong>: ',\n                      CostofTreatment,\n                      '<br><strong>TreatmentCostRank</strong>: ',\n                      rank\n                      ))%>%\n    leaflet()%>%\n  \n      addTiles() %>%\n          #addProviderTiles(\"NASAGIBS.ViirsEarthAtNight2012\")%>%\n      #addProviderTiles(\"Thunderforest.SpinalMap\")%>%\n      #addProviderTiles(\"Esri.WorldStreetMap\")%>%\n      #addProviderTiles(\"Esri.NatGeoWorldMap\")%>%\n      addProviderTiles(statereact())%>%\n      setView(-110, 45, zoom = 3)%>%\n      addMarkers(lng=~longitude, lat=~latitude,popup=~as.character(X),clusterOptions = markerClusterOptions())%>%\n      mapOptions(zoomToLimits = \"first\")\n  )\n  \n  output$table <- DT::renderDataTable(DT::datatable({\n    data <-     AverageCategory%>%\n      filter(Category==catreact())%>%\n      top_n(n=10,wt=AverageCost)%>%\n      mutate(CostofTreatment=sprintf(\"$%s\",format(AverageCost,big.mark=\",\",digits=2,scientific=FALSE)))\n    \n    \n    data[,c(\"ProviderName\",\"Name\",\"ProviderState\",\"CostofTreatment\")]\n   \n \n}))\n}\n\n# Run the application\nshinyApp(ui = ui, server = server)\n\n\n",
+    "created" : 1478659178349.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "606593264",
+    "id" : "45E8228A",
+    "lastKnownWriteTime" : 1480829449,
+    "last_content_update" : 1480829449,
+    "path" : "C:/Users/Travis/Desktop/Final Project/Mapping/app.R",
+    "project_path" : "Mapping/app.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
