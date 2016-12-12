@@ -2,7 +2,7 @@
 
 ---
 title: "The Costs of Healthcare"
-author: "Jake Johnson, Travis Barrick, Erica Fitzgerald, Carrie Baggett"
+author: "Jake Johnson, Travis Barrick, Erika Fitzgerald, Carrie Baggett"
 date: "December 11, 2016 [Use keyboard arrows to navigate presentation]"
 output: 
   ioslides_presentation:

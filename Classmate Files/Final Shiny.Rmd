@@ -2,7 +2,7 @@
 
 ---
 title: "The Cost of Healthcare"
-author: "Jake Johnson, Travis Barrick, Erica Fitzgerald, Carrie Baggett"
+author: "Jake Johnson, Travis Barrick, Erika Fitzgerald, Carrie Baggett"
 date: "November 13, 2016"
 output: 
   ioslides_presentation:
@@ -154,36 +154,53 @@ AverageCategory<-AverageCategory%>%
 
 
 ```
+
 ##Introduction
 Healthcare affects us all.  When we or a loved one face a health issue we strive to find the best care possible.  Unfortunately, US health care costs are among the highest in the world and often based on where we are located and our health affliction choices can be limited and vary based on cost.  Expenses not covered by insurance can put patients in tough financial situations.  Hospitals have the right to charge as they see fit for medical procedures and it’s difficult for patients to know if they are being billed fairly.  It is with this notion of mysterious health care costs that we explored the ‘Hospital Charge Data’ from data.gov [link](https://www.data.gov/health/).  This data exploration provides a greater understanding of the relationship between common healthcare procedures and their associated costs, availability, and quality across the United States and how healthcare costs across the nation compare to Iowa.
 
+
 ##Data
+
 
 The ‘Hospital Charge Data’ contains billing data on the 100 most common inpatient and 30 most common outpatient services for hospitals and medical centers across the US in 2011. The services were consolidated into the 14 following procedure categories for the analysis:   Ears/Nose/Throat, Endocrine, Gastrointestinal, Heart, Infections, Lung, Nerve, Orthopedic, Other, Poisoning, Psychiatric, Renal, Skin, and Vascular.    
 
+
 The dataset includes three different billing charges used in this analysis:  
+
 
 - **Average Insurance Cost:**  the average amount covered by insurance  
 
+
 - **Average Medicare Coverage:** the average Medicare payment for a procedure, deemed the reasonable charge as Medicare has rules they apply when determining how much will be paid for procedures  
+
 
 - **Average Patient Owed:** this is the average amount owed by patients after insurance and Medicare is applied.  
 
+
 To assess hospital quality, a 1 through 5 ranking was applied to the dataset using hospital rank from the “Hospital Compare” dataset provided by data.medicare.gov [link](https://data.medicare.gov/data/hospital-compare ).  Lastly, cost of living adjustments were applied to the dataset using data from the US Department of Labor to determine cost variation in relation to Iowa.  
 
-- Access to our data and code is available on Google Drives through this [link](https://drive.google.com/drive/folders/0B8tc7fB6TuONR29hVDVaNXJEX1k?usp=sharing). *Note: You must be logged in to your Iowa State account in order to view.* 
+
+- Access to our data and code is available on GitHub through this [link](https://github.com/travisbarrick/final-project). *Note: Look for the instructions under "Final - Project.* 
+
+
+
 
 ##Our Findings
-Starting broadly, we found that across the United States infections were on average the most costly procedure to treat followed by orthopedic, nerve, and gastrointestinal.  Hospitals in states such as California and Arizona charged the most on average to treat infections.  Treatment availability and quality vary greatly based on procedure, but following our infection example 5 star quality treatment options were available at 57 hospitals across the United States; costs for treatments at these hospitals range from $24k to $225k.  The cost of treating infections in Iowa is at the low end of that range, with an average cost of treatment for infections of under $32k at Mercy Hospital in Iowa City. California tops the other end of the range, with the only two hospitals with charges exceeding $200k. 
+Starting broadly, we found that across the United States infections were on average the most costly procedure to treat followed by orthopedic, nerve, and gastrointestinal.  Hospitals in states such as New Jersey, California, and Nevada charged the most on average to treat infections.  Treatment availability and quality vary greatly based on procedure, but following our infection example 5 star quality treatment options were available at 57 hospitals across the United States; costs for treatments at these hospitals range from $24k to $225k.  The cost of treating infections in Iowa is at the low end of that range, with an average cost of treatment for infections of under $32k at Mercy Hospital in Iowa City. California tops the other end of the range, with the only two hospitals with charges exceeding $200k. 
+
 
 ##Your Turn
 This application provides four different charts to interact with and explore the health-care data:  
 
+
 -**Average Cost of Healthcare by State:**  Interested in knowing differences in costs for heart procedures across states in the US?  This multi-dimensional scatterplot allows you to view the 3 primary billing components side-by-side per state by procedure category.   
+
 
 -**Treatment Cost:** Using this chart you can select a procedure category and the map will populate the location of hospitals that treat it; click on the *Most Affordable Hospital* tab to see which hospitals offer the lowest cost for each procedure.  Another feature of this chart is the ability to select a hospital quality ranking of 1 to 5 stars.  
 
+
 -**Cost of Healthcare Compared to Iowa:**  This map allows you to see the relationship between procedure cost categories in comparison to Iowa, both on a straight cost and cost of living adjusted basis.  
+
 
 -**Number of Patients by Category in Iowa:** This scatterplot provides an additional level of detail displaying all procedures within a specified procedure category by the number of patients.  
 
@@ -210,9 +227,12 @@ ui <- fluidPage(
 )
 
 server <- function(input, output,session) {
+  catreact<-reactive({input$Category})
+  
+  
   output$plot <- renderPlotly({
     m<-Analysis_Dataset%>%
-      filter(Category==input$Category)%>%
+      filter(Category==catreact())%>%
       group_by(Category,ProviderState) %>% 
       summarise(avg_insurance = paste("$",prettyNum(mean(AverageCoveredCharges),big.mark=",",scientific=FALSE), sep=""),
                 avg_medicare = paste("$",prettyNum(mean(AverageMedicarePayments),big.mark=",",scientific=FALSE), sep="") ,
@@ -438,5 +458,4 @@ gg
 }
 shinyApp(ui = ui, server = server)
 
-```
 
